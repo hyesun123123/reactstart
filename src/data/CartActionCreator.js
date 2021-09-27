@@ -18,3 +18,4 @@ export const removeFromCart =(product)=>({
 export const clearCart=()=>({
     type: ActionTypes.CART_CLEAR
 })
+//payload:액션 실행에 필요한 데이터를 운반하는 프로퍼티

@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import {loadData} from "../data/ActionCreators";
 import { DataTypes } from "../data/Types";
 import {Shop} from "./Shop";
-
+import { addToCart, updateCartQuantity, removeFromCart, clearCart } from "../data/CartActionCreator";
+import { CartDetails } from "./CartDetail";
 const mapStateToProps = (dataStore) =>({
     ...dataStore
 })
 const mapDispatchProps={
-    loadData
+    loadData, addToCart, updateCartQuantity, removeFromCart, clearCart
 }
 const filterProducts =(products=[], category)=>
     (!category || category === "All")
@@ -24,7 +25,9 @@ export const ShopConnector = connect(mapStateToProps, mapDispatchProps)(
                         <Shop {...this.props}{...routeProps}
                         products={filterProducts(this.props.products,
                             routeProps.match.params.category)} />}/>
-                    <Redirect to="/shop/products" />
+                <Route path="/shop/cart" render={(routeProps)=>
+                <CartDetails {...this.props}{...routeProps} />} />
+                <Redirect to="/shop/products"/>
             </Switch>
         }
         componentDidMount(){
